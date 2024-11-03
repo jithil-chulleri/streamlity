@@ -2,9 +2,8 @@
 import streamlit as st
 
 def authenticate(username, password):
-    """Check if the username and password match the stored credentials."""
-    # Read the credentials from Streamlit secrets
-    stored_username = st.secrets["auth"]["username"]
-    stored_password = st.secrets["auth"]["password"]
-    
-    return username == stored_username and password == stored_password
+    """Check if the provided username and password match any stored user."""
+    for user in st.secrets["auth"].values():
+        if user["username"] == username and user["password"] == password:
+            return True
+    return False
